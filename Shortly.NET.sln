@@ -1,0 +1,31 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shortly.NET.Api", "Shortly.NET.Api\Shortly.NET.Api.csproj", "{30986293-2C56-4BE2-97D9-38B36F52A688}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{30986293-2C56-4BE2-97D9-38B36F52A688}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30986293-2C56-4BE2-97D9-38B36F52A688}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30986293-2C56-4BE2-97D9-38B36F52A688}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30986293-2C56-4BE2-97D9-38B36F52A688}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C9AB0421-6234-4E3C-A0ED-D47487D78460}
+	EndGlobalSection
+EndGlobal
