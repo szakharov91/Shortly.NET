@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Shortly.NET</title>
+    <link rel="stylesheet" href="css/site.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Shortly.NET</h1>
+    </header>
+
+    <div class="wrapper">
+      <form id="f">
+        <input id="u" type="url" placeholder="https://..." style="width:300px" />
+        <button>Shorten</button>
+      </form>
+    </div>
+    <div class="result">
+      <pre id="out"></pre>
+      <button class="copy-btn" aria-label="Copy to clipboard" title="Copy to clipboard">
+        
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const out = document.getElementById('out');
+    const copyBtn = document.querySelector('.copy-btn');
+
+    copyBtn.addEventListener('click', async () => {
+      try {
+        // Используем textContent, чтобы не получить лишних пробелов/разделителей
+        const text = out.textContent.trim();
+        await navigator.clipboard.writeText(text);
+        // Временно изменить иконку или подсветить
+        copyBtn.title = 'Copied!';
+        setTimeout(() => copyBtn.title = 'Copy to clipboard', 2000);
+      } catch (err) {
+        console.error('Copy failed', err);
+        copyBtn.title = 'Copy failed';
+        setTimeout(() => copyBtn.title = 'Copy to clipboard', 2000);
+      }
+    });
+
+    f.onsubmit = async e => {
+      e.preventDefault();
+      out.textContent = '';
+      try {
+        const res = await fetch('/shorten', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url: u.value.trim() })
+        });
+        const data = await res.json();
+        out.textContent = res.ok ? window.location.origin + "/" + data.id : `Error ${res.status}: ${data}`;
+      } catch (err) {
+        out.textContent = `Network error: ${err}`;
+      }
+    }
+  </script>
+</body>
+</html>

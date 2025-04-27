@@ -1,4 +1,6 @@
+using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.FileProviders;
 using Shortly.NET.Api.Requests;
 using Shortly.NET.Api.Services;
 
@@ -10,11 +12,13 @@ builder.Services.AddCors(
 
 var app = builder.Build();
 
+app.UseFileServer();
+
 app.UseCors();
 
 var store = app.Services.GetRequiredService<ILinkStore>();
 
-app.MapGet("/", () => Results.Json(store.GetAll()));
+app.MapGet("/links", () => Results.Json(store.GetAll()));
 
 app.MapPost("/shorten", (LinkRequest req) =>
 {
@@ -45,5 +49,7 @@ app.MapPost("/batch-shorten", ([FromBody] IEnumerable<LinkRequest> batch) =>
     var result = batch.Select(r => store.Create(r.Url));
     return Results.Ok(result);
 });
+
+app.MapFallbackToFile("index.html");
 
 app.Run();
